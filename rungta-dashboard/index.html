@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rungta Portal | Next-Gen College Dashboard</title>
+    <meta name="description" content="A premium, Gen Z-friendly interactive dashboard for Rungta Group of Institutions. Explore workflows, courses, admissions, and placements.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); background-color: var(--bg-card);">
+                <div class="logo" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <img src="assets/rungta_logo.webp" alt="Rungta Group Logo" style="width: 100%; max-height: 75px; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18)); transition: transform var(--transition-normal);">
+                </div>
+                <button class="mobile-close" id="mobile-close" aria-label="Close sidebar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li>
+                        <button class="menu-btn active" data-tab="home" id="btn-home">
+                            <span class="menu-icon"><i class="fa-solid fa-house"></i></span>
+                            <span class="menu-title">Home Feed</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="journey" id="btn-journey">
+                            <span class="menu-icon"><i class="fa-solid fa-route"></i></span>
+                            <span class="menu-title">Student Journey</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="colleges" id="btn-colleges">
+                            <span class="menu-icon"><i class="fa-solid fa-university"></i></span>
+                            <span class="menu-title">Colleges & Programs</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="placements" id="btn-placements">
+                            <span class="menu-icon"><i class="fa-solid fa-briefcase"></i></span>
+                            <span class="menu-title">Placement Hub</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="admissions" id="btn-admissions">
+                            <span class="menu-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                            <span class="menu-title">Admissions Portal</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="quiz" id="btn-quiz">
+                            <span class="menu-icon"><i class="fa-solid fa-lightbulb"></i></span>
+                            <span class="menu-title">Find Your Fit Quiz</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="tour" id="btn-tour">
+                            <span class="menu-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+                            <span class="menu-title">Virtual Campus Tour</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="roi" id="btn-roi">
+                            <span class="menu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                            <span class="menu-title">ROI & Fee Calculator</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-btn" data-tab="hub" id="btn-hub">
+                            <span class="menu-icon"><i class="fa-solid fa-bell"></i></span>
+                            <span class="menu-title">Student Hub (Alerts)</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-info">
+                        <p class="user-name" id="profile-name">Guest Explorer</p>
+                        <p class="user-status" id="profile-status">Not Registered</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Dashboard Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="greeting-box">
+                        <h1 id="greeting-title">Hey, Future Rungtian! 👋</h1>
+                        <p class="subtitle">Explore your academic trajectory and shape your future.</p>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <!-- Progress Badge -->
+                    <div class="header-badge" id="app-progress-badge">
+                        <span class="badge-label">Journey Progress</span>
+                        <div class="progress-pill">
+                            <div class="progress-bar-fill" id="header-progress-fill" style="width: 20%;"></div>
+                            <span class="progress-pct" id="header-progress-pct">20%</span>
+                        </div>
+                    </div>
+
+                    <!-- Audio Control Toggle (Header Mode) -->
+                    <div class="audio-control-header" id="audio-widget" style="display: flex; align-items: center; gap: 8px; background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: var(--radius-full); height: 42px; margin-right: 8px;">
+                        <audio id="bg-audio" loop>
+                            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        </audio>
+                        <button class="audio-toggle-btn" id="audio-toggle-btn" aria-label="Play soothing ambient music" style="width: 26px; height: 26px; border-radius: 50%; background-color: var(--accent-red); color: #ffffff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color var(--transition-fast);">
+                            <span class="audio-icon play-icon"><i class="fa-solid fa-play" style="font-size: 0.7rem;"></i></span>
+                            <span class="audio-icon pause-icon" style="display: none;"><i class="fa-solid fa-pause" style="font-size: 0.7rem;"></i></span>
+                        </button>
+                        <div class="audio-details" id="audio-details" style="display: flex; align-items: center; gap: 8px;">
+                            <span class="audio-title" style="font-size: 0.75rem; font-weight: 600; color: var(--text-primary); white-space: nowrap;">Study Beats</span>
+                            <div class="audio-visualizer" style="display: flex; align-items: flex-end; gap: 2px; height: 10px; width: 14px;">
+                                <span class="bar bar-1" style="width: 2px; height: 2px; background-color: var(--accent-red-light); border-radius: var(--radius-full);"></span>
+                                <span class="bar bar-2" style="width: 2px; height: 2px; background-color: var(--accent-red-light); border-radius: var(--radius-full);"></span>
+                                <span class="bar bar-3" style="width: 2px; height: 2px; background-color: var(--accent-red-light); border-radius: var(--radius-full);"></span>
+                                <span class="bar bar-4" style="width: 2px; height: 2px; background-color: var(--accent-red-light); border-radius: var(--radius-full);"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+                        <span class="toggle-icon dark-visible"><i class="fa-solid fa-sun"></i></span>
+                        <span class="toggle-icon light-visible"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Screens -->
+            <div class="content-body">
+                
+                <!-- TAB 1: HOME FEED -->
+                <section class="tab-content active" id="tab-home">
+                    <!-- Campus Hero Banner -->
+                    <div class="hero-banner" id="hero-banner" style="min-height: 380px; padding: 40px; position: relative;">
+                        <!-- Dynamic background slideshow -->
+                        <div class="hero-slideshow-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+                            <div class="hero-slide active" style="background-image: url('assets/campus_banner.webp'); position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1.5s ease-in-out; opacity: 1; z-index: 1;"></div>
+                            <div class="hero-slide" style="background-image: url('assets/campus_life.webp'); position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1.5s ease-in-out; opacity: 0; z-index: 1;"></div>
+                            <div class="hero-slide" style="background-image: url('assets/placements_image.webp'); position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1.5s ease-in-out; opacity: 0; z-index: 1;"></div>
+                        </div>
+                        <div class="hero-overlay" style="background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%); z-index: 2; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+                        <div class="hero-content" style="max-width: 750px; position: relative; z-index: 3;">
+                            <div class="hero-brand" style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+                                <span class="hero-logo" style="width: 46px; height: 46px; border-radius: 12px; background: #c01e2e; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem; box-shadow: 0 4px 20px rgba(192, 30, 46, 0.5);"><i class="fa-solid fa-graduation-cap"></i></span>
+                                <span class="hero-tag" style="font-size: 1.1rem; font-weight: 800; color: #ffffff; letter-spacing: 1px; margin-bottom: 0;">RUNGTA COLLEGE</span>
+                            </div>
+                            <h2 style="font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; text-transform: uppercase;">A Name That Placed You First</h2>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--accent-red-light); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px;">Where Skills Meet Opportunity</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; font-size: 0.9rem; color: #e2e8f0; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                                <p style="margin-bottom: 0; line-height: 1.4;"><i class="fa-solid fa-location-dot" style="color: var(--accent-red-light); margin-right: 6px;"></i> <strong>Bhilai Campus:</strong> Rungta Educational Campus, Kohka-Kurud Road, Bhilai, CG, India</p>
+                                <p style="margin-bottom: 0; line-height: 1.4;"><i class="fa-solid fa-location-dot" style="color: var(--accent-red-light); margin-right: 6px;"></i> <strong>Raipur Campus:</strong> Rungta Educational Campus, Near Nandanvan, Veer Savarkar Nagar, Raipur, CG, India</p>
+                            </div>
+                            
+                            <div class="hero-actions">
+                                <button class="btn btn-primary" onclick="switchTab('admissions')">Apply Now <i class="fa-solid fa-arrow-right-long"></i></button>
+                                <button class="btn btn-secondary" onclick="switchTab('journey')">View Journey <i class="fa-solid fa-route"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fast Facts / Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fa-solid fa-building-circle-check"></i></div>
+                            <div class="metric-data">
+                                <h3>95%+</h3>
+                                <p>Placement Record</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div class="metric-data">
+                                <h3>38 LPA</h3>
+                                <p>Highest Package</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="metric-data">
+                                <h3>100+</h3>
+                                <p>Programs Offered</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fa-solid fa-handshake"></i></div>
+                            <div class="metric-data">
+                                <h3>300+</h3>
+                                <p>Recruiting Partners</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accreditations & Affiliations Bar -->
+                    <div class="glass-card" style="margin-bottom: 24px;">
+                        <div class="card-header" style="margin-bottom: 16px;">
+                            <h3><i class="fa-solid fa-award"></i> Affiliations & Accreditations</h3>
+                            <span class="card-tag">Official Standards</span>
+                        </div>
+                        <div class="accreditation-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                            <div style="background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: center; gap: 12px;">
+                                <span style="font-size: 1.8rem; color: var(--accent-red-light);"><i class="fa-solid fa-building-shield"></i></span>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem;">Approved by AICTE</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.3; display: block;">All India Council for Technical Education, New Delhi</span>
+                                </div>
+                            </div>
+                            <div style="background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: center; gap: 12px;">
+                                <span style="font-size: 1.8rem; color: var(--accent-red-light);"><i class="fa-solid fa-circle-nodes"></i></span>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem;">Affiliated with CSVTU</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.3; display: block;">Chhattisgarh Swami Vivekanand Technical University, Bhilai</span>
+                                </div>
+                            </div>
+                            <div style="background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: center; gap: 12px;">
+                                <span style="font-size: 1.8rem; color: var(--accent-red-light);"><i class="fa-solid fa-ribbon"></i></span>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem;">NAAC Accredited</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.3; display: block;">National Assessment and Accreditation Council</span>
+                                </div>
+                            </div>
+                            <div style="background-color: var(--bg-app); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: center; gap: 12px;">
+                                <span style="font-size: 1.8rem; color: var(--accent-red-light);"><i class="fa-solid fa-stamp"></i></span>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem;">NBA & Council Clearances</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.3; display: block;">Accredited programs & DCI/PCI council approvals</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Home Grid -->
+                    <div class="grid-two-cols">
+                        <!-- Quick Navigation / Dashboard Portal -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-compass"></i> Direct Portals</h3>
+                                <span class="card-tag">Official Links</span>
+                            </div>
+                            <div class="portals-grid">
+                                <a href="https://fees.rungta.ac.in" target="_blank" rel="noopener" class="portal-item">
+                                    <div class="portal-icon"><i class="fa-solid fa-wallet"></i></div>
+                                    <span>Fee Payment</span>
+                                </a>
+                                <a href="https://rungta.keka.com" target="_blank" rel="noopener" class="portal-item">
+                                    <div class="portal-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                                    <span>Keka ERP Login</span>
+                                </a>
+                                <a href="https://rungta.ac.in" target="_blank" rel="noopener" class="portal-item">
+                                    <div class="portal-icon"><i class="fa-solid fa-globe"></i></div>
+                                    <span>Official Website</span>
+                                </a>
+                                <a href="#" onclick="switchTab('journey')" class="portal-item">
+                                    <div class="portal-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                    <span>Admission Rules</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Gen Z Vibe Highlights -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-bolt"></i> Life @ Rungta</h3>
+                                <span class="card-tag">Beyond Academics</span>
+                            </div>
+                            <div class="card-image-box">
+                                <img src="assets/campus_life.webp" alt="Rungta Campus Life - Student Activities" class="card-hero-img" loading="lazy">
+                            </div>
+                            <ul class="highlights-list">
+                                <li>
+                                    <span class="highlight-bullet"><i class="fa-solid fa-guitar"></i></span>
+                                    <div>
+                                        <h4>Rungta Carnival & VYOM</h4>
+                                        <p>Central India's biggest college fests with live concerts, tech expos, and celebrity performances.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="highlight-bullet"><i class="fa-solid fa-code"></i></span>
+                                    <div>
+                                        <h4>Rungta Hackathon Cell</h4>
+                                        <p>Join coding clubs, innovation bootcamps, and build project prototypes with seed funding.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="highlight-bullet"><i class="fa-solid fa-dumbbell"></i></span>
+                                    <div>
+                                        <h4>Elite Sports & Gym Facilities</h4>
+                                        <p>Modern indoor sports arenas, floodlit basketball fields, and fully equipped strength centres.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact & Video Gallery Grid -->
+                    <div class="grid-two-cols" style="margin-top: 24px;">
+                        <!-- Campus Video Embed -->
+                        <div class="glass-card" style="display: flex; flex-direction: column;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-circle-play"></i> Virtual Campus Tour Video</h3>
+                                <span class="card-tag">Experience Campus</span>
+                            </div>
+                            <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                                <iframe src="https://www.youtube.com/embed/F3G8X24HkM4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" title="Rungta Campus Virtual Tour" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 12px; line-height: 1.4;">
+                                Get a bird's-eye view of our state-of-the-art infrastructure, libraries, sports complex, and labs in this 3-minute virtual drone tour.
+                            </p>
+                        </div>
+
+                        <!-- Contact Details & Campus Directories -->
+                        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-address-book"></i> Contact & Directories</h3>
+                                    <span class="card-tag">Admissions Desk</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.85rem;">
+                                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                        <span style="color: var(--accent-red-light); font-size: 1.1rem; width: 20px; text-align: center;"><i class="fa-solid fa-phone"></i></span>
+                                        <div>
+                                            <strong style="display: block;">Admissions Hotline</strong>
+                                            <span style="color: var(--text-secondary);">+91 90162 26666 &nbsp;|&nbsp; +91 90162 24444</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                        <span style="color: var(--accent-red-light); font-size: 1.1rem; width: 20px; text-align: center;"><i class="fa-solid fa-envelope"></i></span>
+                                        <div>
+                                            <strong style="display: block;">Support Email</strong>
+                                            <span style="color: var(--text-secondary);">admissions@rungta.ac.in &nbsp;|&nbsp; info@rungta.ac.in</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                        <span style="color: var(--accent-red-light); font-size: 1.1rem; width: 20px; text-align: center;"><i class="fa-solid fa-map-location-dot"></i></span>
+                                        <div>
+                                            <strong style="display: block;">Bhilai Campus (RIU & RCET)</strong>
+                                            <span style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.3; display: block;">Rungta Educational Campus, Kohka-Kurud Road, Kurud, Bhilai, Chhattisgarh 490024</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                        <span style="color: var(--accent-red-light); font-size: 1.1rem; width: 20px; text-align: center;"><i class="fa-solid fa-map-location-dot"></i></span>
+                                        <div>
+                                            <strong style="display: block;">Raipur Campus (SRGI)</strong>
+                                            <span style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.3; display: block;">Rungta Educational Campus, Near Nandanvan, Veer Savarkar Nagar, Raipur, Chhattisgarh 492099</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px; border-top: 1px solid var(--border-color); padding-top: 16px; display: flex; gap: 10px;">
+                                <a href="tel:+919016226666" class="btn btn-primary" style="flex: 1; padding: 8px 12px; font-size: 0.85rem;"><i class="fa-solid fa-phone"></i> Call Admissions</a>
+                                <a href="mailto:admissions@rungta.ac.in" class="btn btn-secondary" style="flex: 1; padding: 8px 12px; font-size: 0.85rem;"><i class="fa-solid fa-envelope"></i> Email Support</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: STUDENT JOURNEY WORKFLOW -->
+                <section class="tab-content" id="tab-journey">
+                    <div class="section-header">
+                        <h2>The Rungtian Journey Tracker</h2>
+                        <p>Track your student pathway lifecycle in real-time. Follow the steps from registering interest to getting placed in your dream company.</p>
+                    </div>
+
+                    <!-- Journey Timeline Workflow -->
+                    <div class="journey-workflow-container">
+                        <!-- Progress Indicator Bar -->
+                        <div class="workflow-progress-line">
+                            <div class="workflow-line-fill" id="workflow-line-fill" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Step Circles -->
+                        <div class="workflow-steps">
+                            <div class="workflow-step active" data-step="1">
+                                <div class="step-num">1</div>
+                                <span class="step-label">Registration</span>
+                            </div>
+                            <div class="workflow-step" data-step="2">
+                                <div class="step-num">2</div>
+                                <span class="step-label">Entrance / Merit</span>
+                            </div>
+                            <div class="workflow-step" data-step="3">
+                                <div class="step-num">3</div>
+                                <span class="step-label">Counseling</span>
+                            </div>
+                            <div class="workflow-step" data-step="4">
+                                <div class="step-num">4</div>
+                                <span class="step-label">Verification</span>
+                            </div>
+                            <div class="workflow-step" data-step="5">
+                                <div class="step-num">5</div>
+                                <span class="step-label">Onboarding</span>
+                            </div>
+                            <div class="workflow-step" data-step="6">
+                                <div class="step-num">6</div>
+                                <span class="step-label">Placement</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step Detail Panel -->
+                    <div class="workflow-detail-panel glass-card" id="step-detail-card">
+                        <div class="detail-header">
+                            <span class="step-counter-badge" id="detail-step-badge">Step 1 of 6</span>
+                            <h3 id="detail-step-title">Register & Inquire Interest</h3>
+                        </div>
+                        <div class="detail-content" id="detail-step-desc">
+                            <p>The initial phase of your path. Submit your online enquiry to share your career objectives and chosen stream. Our academic counselors will review your profile and contact you within 24 hours.</p>
+                            
+                            <div class="checklist-section">
+                                <h4>Requirements & Checklist</h4>
+                                <ul>
+                                    <li><i class="fa-regular fa-square-check"></i> Fill up basic information in the portal.</li>
+                                    <li><i class="fa-regular fa-square-check"></i> Choose your course stream interest (e.g. Engineering, Management).</li>
+                                    <li><i class="fa-regular fa-square"></i> Request free call back from academic mentors.</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-footer">
+                                <div class="info-note">
+                                    <i class="fa-solid fa-circle-info"></i> You can mock-complete this step by submitting the form in the "Admissions Portal" tab!
+                                </div>
+                                <button class="btn btn-primary" onclick="nextWorkflowStep()">Next Phase <i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: COLLEGES & COURSES -->
+                <section class="tab-content" id="tab-colleges">
+                    <div class="section-header">
+                        <h2>Explore Colleges & Programs</h2>
+                        <p>Rungta offers diverse streams spanning Engineering, Pharmacy, Dental, Commerce, Science, and Management. Filter and find your perfect curriculum.</p>
+                    </div>
+
+                    <!-- Filters and Search Toolbar -->
+                    <div class="filter-toolbar">
+                        <div class="search-box">
+                            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="text" id="course-search" placeholder="Search courses (e.g., Artificial Intelligence, MBA, Pharmacy)..." aria-label="Search courses">
+                        </div>
+                        <div class="filter-tabs">
+                            <button class="filter-btn active" data-filter="all">All Streams</button>
+                            <button class="filter-btn" data-filter="engineering">Engineering</button>
+                            <button class="filter-btn" data-filter="pharmacy">Pharmacy</button>
+                            <button class="filter-btn" data-filter="dental">Dental</button>
+                            <button class="filter-btn" data-filter="management">Management & IT</button>
+                        </div>
+                    </div>
+
+                    <!-- Course Grid -->
+                    <div class="course-grid" id="course-grid">
+                        <!-- Cards will be populated dynamically by JS -->
+                    </div>
+                </section>
+
+                <!-- TAB 4: PLACEMENT HUB -->
+                <section class="tab-content" id="tab-placements">
+                    <div class="section-header">
+                        <h2>Training & Placement (T&P) Hub</h2>
+                        <p>Our T&P Cell employs a unique structured pipeline to transform you into an industry-ready professional. That's why we maintain a consistent 95%+ placement record.</p>
+                    </div>
+
+                    <!-- Placements Real Banner Image -->
+                    <div class="placements-hero-container glass-card">
+                        <img src="assets/placements_image.webp" alt="Rungta Group record placements celebration" class="placements-hero-img" loading="lazy">
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Prep Workflow -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-graduation-cap"></i> Placement Prep Pipeline</h3>
+                                <span class="card-tag">Workflow</span>
+                            </div>
+                            <ol class="placement-steps-list">
+                                <li class="prep-step">
+                                    <span class="prep-step-num">01</span>
+                                    <div class="prep-step-details">
+                                        <h4>Resume Cracking Session</h4>
+                                        <p>Build ATS-friendly, impact-focused resumes with industry mentors.</p>
+                                    </div>
+                                </li>
+                                <li class="prep-step">
+                                    <span class="prep-step-num">02</span>
+                                    <div class="prep-step-details">
+                                        <h4>Aptitude & Technical Bootcamps</h4>
+                                        <p>Intense practice on quantitative analysis, algorithms, and logical reasoning.</p>
+                                    </div>
+                                </li>
+                                <li class="prep-step">
+                                    <span class="prep-step-num">03</span>
+                                    <div class="prep-step-details">
+                                        <h4>Mock GDs & Coding Challenges</h4>
+                                        <p>Real-time mock Group Discussions and coding sprints to boost agility.</p>
+                                    </div>
+                                </li>
+                                <li class="prep-step">
+                                    <span class="prep-step-num">04</span>
+                                    <div class="prep-step-details">
+                                        <h4>Simulated HR and Tech Panels</h4>
+                                        <p>Interviews with active industry practitioners to refine communication and tech skills.</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!-- Top recruiters & Stats -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-handshake"></i> Top Recruiting Partners</h3>
+                                <span class="card-tag">Live Feed</span>
+                            </div>
+                            <p class="helper-text">Rungta students are placed globally in top-tier multinationals. Search our network:</p>
+                            
+                            <div class="recruiter-search-box">
+                                <input type="text" id="recruiter-search" placeholder="Type to filter companies (e.g. Amazon, TCS)..." aria-label="Search recruiters">
+                            </div>
+
+                            <div class="recruiters-logo-grid" id="recruiters-grid">
+                                <!-- Recruiter logos / items will be outputted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placed students Showcase (Carousel-style) -->
+                    <div class="placement-carousel-section glass-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-quote-left"></i> Rungtian Success Stories</h3>
+                            <div class="carousel-nav">
+                                <button class="carousel-arrow" id="carousel-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+                                <button class="carousel-arrow" id="carousel-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-track">
+                                <div class="carousel-slide active">
+                                    <div class="testimonial-card">
+                                        <div class="avatar-circle"><i class="fa-solid fa-user-tie"></i></div>
+                                        <div class="testimonial-info">
+                                            <h4>Aakash Verma</h4>
+                                            <p class="testimonial-title">Software Engineer @ AWS</p>
+                                            <p class="testimonial-text">"The rigorous mock interviews and coding bootcamp organized by the T&P Cell helped me clear the AWS online assessment. Getting an offer of 38 LPA was a dream come true!"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="testimonial-card">
+                                        <div class="avatar-circle"><i class="fa-solid fa-user-ninja"></i></div>
+                                        <div class="testimonial-info">
+                                            <h4>Priya Sharma</h4>
+                                            <p class="testimonial-title">Systems Analyst @ Cognizant</p>
+                                            <p class="testimonial-text">"Rungta's tie-up with top companies gave us a head start. The group discussions classes made me confident, helping me land a core developer job in my final semester."</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="testimonial-card">
+                                        <div class="avatar-circle"><i class="fa-solid fa-user-doctor"></i></div>
+                                        <div class="testimonial-info">
+                                            <h4>Dr. Rohan Gupta</h4>
+                                            <p class="testimonial-title">Resident Dentist @ RCDSR Alumnus</p>
+                                            <p class="testimonial-text">"The state-of-the-art dental clinical labs and extensive patient intake at RCDSR gave me the hands-on exposure required for my dental career. Truly standard-defining education."</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 5: ADMISSIONS WIZARD & REGISTRATION -->
+                <section class="tab-content" id="tab-admissions">
+                    <div class="section-header">
+                        <h2>Interactive Admissions Wizard</h2>
+                        <p>Fill out the application tracker simulator. This acts as a interactive pipeline demonstrating how your inputs automatically generate updates on your Rungtian Journey.</p>
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Application Form Card -->
+                        <div class="glass-card" id="form-card-container">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-pen-clip"></i> Application Form Simulator</h3>
+                                <span class="status-indicator active" id="form-step-indicator">Step 1: Bio</span>
+                            </div>
+                            
+                            <form id="admission-wizard-form" class="wizard-form">
+                                <!-- Wizard Step 1: Personal Info -->
+                                <div class="wizard-form-step active" data-form-step="1">
+                                    <div class="form-group">
+                                        <label for="student-name">Full Name</label>
+                                        <input type="text" id="student-name" required placeholder="Enter your full name" aria-required="true">
+                                        <span class="error-msg" id="name-error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="student-email">Email Address</label>
+                                        <input type="email" id="student-email" required placeholder="Enter email (e.g. dev@rungta.ac.in)" aria-required="true">
+                                        <span class="error-msg" id="email-error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="student-phone">Contact Number</label>
+                                        <input type="tel" id="student-phone" required placeholder="10-digit mobile number" aria-required="true">
+                                        <span class="error-msg" id="phone-error"></span>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" onclick="validateStep1()">Proceed to Education <i class="fa-solid fa-arrow-right"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- Wizard Step 2: Educational Details -->
+                                <div class="wizard-form-step" data-form-step="2">
+                                    <div class="form-group">
+                                        <label for="student-stream">Select College Stream</label>
+                                        <select id="student-stream" required aria-required="true">
+                                            <option value="" disabled selected>Select your preferred stream</option>
+                                            <option value="engineering">RCET Bhilai - B.Tech Computer Science</option>
+                                            <option value="pharmacy">RIPER - Pharmacy (B.Pharm)</option>
+                                            <option value="dental">RCDSR - Dental Sciences (BDS)</option>
+                                            <option value="management">RIU - MBA / MCA programs</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="student-score">12th Grade / Graduation Marks (%)</label>
+                                        <input type="number" id="student-score" min="40" max="100" required placeholder="Enter overall percentage (Min 40%)" aria-required="true">
+                                        <span class="error-msg" id="score-error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="student-exam">National / State Exam Score (Percentile)</label>
+                                        <input type="number" id="student-exam" min="0" max="100" placeholder="JEE, CGPET, NEET, CAT etc. (Optional)" aria-required="false">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-outline" onclick="prevFormStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                                        <button type="button" class="btn btn-primary" onclick="submitAdmissionSimulator()">Generate Admission Status <i class="fa-solid fa-circle-check"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Instant Result Portal -->
+                        <div class="glass-card result-panel" id="result-panel-container">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-square-poll-horizontal"></i> Live Admission Status</h3>
+                                <span class="card-tag" id="status-tag">Unsubmitted</span>
+                            </div>
+                            
+                            <!-- Unsubmitted State -->
+                            <div class="status-placeholder" id="status-placeholder">
+                                <div class="pulse-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                                <h4>Waiting for inputs</h4>
+                                <p>Fill and submit the application simulator form to run the eligibility checks, unlock the admissions stages, and generate your printable offer letter.</p>
+                            </div>
+
+                            <!-- Success / Letter State (hidden by default) -->
+                            <div class="status-success-letter hidden" id="status-success-letter">
+                                <div class="letter-badge"><i class="fa-solid fa-stamp"></i> APPROVED</div>
+                                
+                                <div class="letter-box" id="print-letter-box">
+                                    <div class="letter-header">
+                                        <div class="letter-logo">
+                                            <i class="fa-solid fa-graduation-cap"></i> Rungta Group
+                                        </div>
+                                        <div class="letter-date" id="letter-date">Date: 2026-06-27</div>
+                                    </div>
+                                    
+                                    <hr class="letter-divider">
+
+                                    <div class="letter-body">
+                                        <h5>OFFER OF PROVISIONAL ADMISSION</h5>
+                                        <p>Dear <strong id="letter-student-name">Student</strong>,</p>
+                                        <p>Congratulations! Based on your academic score of <span id="letter-student-score">85%</span>, we are pleased to offer you provisional admission into the <strong id="letter-student-stream">Computer Science</strong> program at our campus.</p>
+                                        <p>Your enrollment stands active under the tracker, shifting your Journey Pipeline to **Stage 5: Verification & Onboarding**.</p>
+                                    </div>
+
+                                    <div class="letter-footer">
+                                        <div class="letter-signature">
+                                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30' viewBox='0 0 100 30'><path d='M10,25 C30,10 40,5 60,15 C80,25 90,5 95,20' fill='none' stroke='indigo' stroke-width='2'/></svg>" alt="Registrar Signature" class="sig-img">
+                                            <p>Office of the Registrar</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="letter-actions">
+                                    <button class="btn btn-outline" onclick="printOfferLetter()"><i class="fa-solid fa-print"></i> Print Offer</button>
+                                    <button class="btn btn-primary" onclick="resetAdmissionSimulator()"><i class="fa-solid fa-rotate-left"></i> Reset Form</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 6: FIND YOUR FIT QUIZ -->
+                <section class="tab-content" id="tab-quiz">
+                    <div class="section-header">
+                        <h2>Gen Z Career Matcher</h2>
+                        <p>Not sure where you belong? Answer these 4 rapid personality questions and let our algorithm match you to your ideal Rungta college stream.</p>
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Quiz Container -->
+                        <div class="glass-card" id="quiz-card-container">
+                            <div class="card-header">
+                                <h3 id="quiz-question-title"><i class="fa-solid fa-circle-question"></i> Question 1 of 4</h3>
+                                <span class="card-tag" id="quiz-progress-badge">Start</span>
+                            </div>
+
+                            <div class="quiz-question-box" id="quiz-box">
+                                <h4 id="question-text" style="font-size: 1.25rem; margin-bottom: 20px;">How do you prefer to spend your weekend?</h4>
+                                
+                                <div class="quiz-options" id="quiz-options-container">
+                                    <button class="quiz-option-btn" data-choice="engineering">
+                                        <span class="option-letter">A</span>
+                                        <span class="option-txt">Building cool web apps, modding games, or playing with tech.</span>
+                                    </button>
+                                    <button class="quiz-option-btn" data-choice="pharmacy">
+                                        <span class="option-letter">B</span>
+                                        <span class="option-txt">Reading about biology, molecular sciences, and compounding formulas.</span>
+                                    </button>
+                                    <button class="quiz-option-btn" data-choice="dental">
+                                        <span class="option-letter">C</span>
+                                        <span class="option-txt">Helping others, clinical diagnostics, or analyzing tooth anatomy and smiles.</span>
+                                    </button>
+                                    <button class="quiz-option-btn" data-choice="management">
+                                        <span class="option-letter">D</span>
+                                        <span class="option-txt">Pitching startup ideas, analyzing stock trends, or organizing community teams.</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quiz Result (hidden by default, shown at the end) -->
+                        <div class="glass-card result-panel" id="quiz-result-container">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-trophy"></i> Your Career Match Result</h3>
+                                <span class="card-tag text-accent-indigo" id="quiz-match-pct">Match Details</span>
+                            </div>
+
+                            <div class="status-placeholder" id="quiz-result-placeholder">
+                                <div class="pulse-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                                <h4>Take the Quiz!</h4>
+                                <p>Select your responses in the left panel to trigger the Rungtian compatibility algorithm and view your matched course recommendation.</p>
+                            </div>
+
+                            <div class="quiz-result-box hidden" id="quiz-result-box">
+                                <div class="letter-badge" id="quiz-result-stream-tag" style="border-color: var(--accent-indigo); color: var(--accent-indigo-light); background-color: rgba(99,102,241,0.1);">ENGINEERING</div>
+                                
+                                <div class="quiz-result-details" style="text-align: center; margin: 20px 0;">
+                                    <h4 id="quiz-match-title" style="font-size: 1.5rem; margin-bottom: 8px;">Computer Science & Engineering</h4>
+                                    <p id="quiz-match-description" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">Your profile matches technical automation, algorithms, coding fests and problem-solving. This aligns perfectly with the RCET Bhilai curriculum.</p>
+                                    
+                                    <div class="metrics-grid" style="margin-bottom: 20px;">
+                                        <div class="metric-card" style="padding: 12px; margin-bottom: 0;">
+                                            <div class="metric-data" style="text-align: center; width: 100%;">
+                                                <h3 style="font-size: 1.4rem;" id="quiz-match-pct-text">95%</h3>
+                                                <p>Compatibility Match</p>
+                                            </div>
+                                        </div>
+                                        <div class="metric-card" style="padding: 12px; margin-bottom: 0;">
+                                            <div class="metric-data" style="text-align: center; width: 100%;">
+                                                <h3 style="font-size: 1.4rem;" id="quiz-match-salary">38.0 LPA</h3>
+                                                <p>Top Target Placement</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="letter-actions">
+                                    <button class="btn btn-outline" onclick="switchTab('colleges')"><i class="fa-solid fa-graduation-cap"></i> View Course Details</button>
+                                    <button class="btn btn-primary" onclick="applyQuizMatch()"><i class="fa-solid fa-paper-plane"></i> Apply Instantly</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 7: VIRTUAL CAMPUS TOUR -->
+                <section class="tab-content" id="tab-tour">
+                    <div class="section-header">
+                        <h2>Virtual Campus Explorer</h2>
+                        <p>Take an interactive tour of Rungta's premier campus facilities. Select a location to inspect layout features, student occupancy details, and real photos.</p>
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Hotspots Selector -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-map-pin"></i> Campus Hotspots</h3>
+                                <span class="card-tag">Interactive Directory</span>
+                            </div>
+
+                            <ul class="highlights-list tour-hotspot-list" id="tour-hotspot-list">
+                                <li class="tour-hotspot active" data-landmark="portal">
+                                    <span class="highlight-bullet"><i class="fa-solid fa-school"></i></span>
+                                    <div style="cursor: pointer; width: 100%;">
+                                        <h4>Main Campus Portal</h4>
+                                        <p>The majestic entrance and administrative lawns of the Rungta Group.</p>
+                                    </div>
+                                </li>
+                                <li class="tour-hotspot" data-landmark="life">
+                                    <span class="highlight-bullet"><i class="fa-solid fa-users"></i></span>
+                                    <div style="cursor: pointer; width: 100%;">
+                                        <h4>Student Activity & Sports Hub</h4>
+                                        <p>Outdoor courts, indoor gym arenas, and cultural spaces for VYOM.</p>
+                                    </div>
+                                </li>
+                                <li class="tour-hotspot" data-landmark="labs">
+                                    <span class="highlight-bullet"><i class="fa-solid fa-laptop-code"></i></span>
+                                    <div style="cursor: pointer; width: 100%;">
+                                        <h4>Advanced Computing & T&P Lab</h4>
+                                        <p>Modern servers, high-speed networks, and specialized placement simulation cells.</p>
+                                    </div>
+                                </li>
+                                <li class="tour-hotspot" data-landmark="library">
+                                    <span class="highlight-bullet"><i class="fa-solid fa-book-open"></i></span>
+                                    <div style="cursor: pointer; width: 100%;">
+                                        <h4>Central Digital Library</h4>
+                                        <p>Quiet study vaults, e-journal terminals, and over 1,00,000+ volumes.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Hotspot Detail View -->
+                        <div class="glass-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;" id="tour-detail-container">
+                            <div style="height: 240px; overflow: hidden; position: relative;">
+                                <img src="assets/campus_banner.webp" id="tour-img" alt="Main Campus View" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.5s ease;">
+                                <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; color: #ffffff;" id="tour-image-label">Real Campus Photo</div>
+                            </div>
+                            
+                            <div style="padding: 24px; flex: 1;">
+                                <h3 id="tour-title" style="margin-bottom: 8px; font-size: 1.3rem;">Main Campus Portal</h3>
+                                <p id="tour-desc" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
+                                    The grand entrance gate of Rungta Group welcome thousands of aspirants yearly. Featuring sprawling green lawns, administrative wings, and high-security smart access boundaries.
+                                </p>
+                                
+                                <div class="checklist-section" style="padding: 12px 16px; margin-bottom: 0;">
+                                    <h4 style="font-size: 0.85rem; margin-bottom: 6px;">Landmark Highlights</h4>
+                                    <ul id="tour-highlights-list" style="font-size: 0.8rem;">
+                                        <li><i class="fa-solid fa-circle-check" style="color: var(--accent-indigo-light);"></i> Wi-Fi enabled administrative spaces.</li>
+                                        <li><i class="fa-solid fa-circle-check" style="color: var(--accent-indigo-light);"></i> Student counseling reception counters.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 8: ROI & FEE CALCULATOR -->
+                <section class="tab-content" id="tab-roi">
+                    <div class="section-header">
+                        <h2>Tuition Fees & ROI Calculator</h2>
+                        <p>Calculate your academic investment transparently. Select a course, estimate your dream placement package, and view your calculated break-even period.</p>
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Inputs Card -->
+                        <div class="glass-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-sliders"></i> Investment Parameters</h3>
+                                <span class="card-tag">Adjust Values</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="roi-course-select">Select Course Program</label>
+                                <select id="roi-course-select" style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                                    <option value="engineering" selected>B.Tech Computer Science (4 Yrs)</option>
+                                    <option value="pharmacy">Bachelor of Pharmacy (4 Yrs)</option>
+                                    <option value="dental">Bachelor of Dental Surgery (5 Yrs)</option>
+                                    <option value="management">Master of Business Administration (2 Yrs)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label>Yearly Tuition Fee (INR)</label>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-indigo-light);" id="roi-yearly-fee">₹80,000 / year</div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 25px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <label>Expected Starting Salary (Annual)</label>
+                                    <span style="font-weight: 800; color: var(--accent-amber);" id="roi-salary-val">6.5 LPA</span>
+                                </div>
+                                <input type="range" id="roi-salary-range" min="3.0" max="40.0" step="0.5" value="6.5" style="width: 100%; cursor: pointer;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                                    <span>3.0 LPA</span>
+                                    <span>Average (6.5 LPA)</span>
+                                    <span>40.0 LPA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calculations Output -->
+                        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-header" style="margin-bottom: 12px;">
+                                    <h3><i class="fa-solid fa-calculator"></i> Return Dynamics</h3>
+                                    <span class="status-indicator active" id="roi-grade" style="background-color: rgba(16,185,129,0.1); border: 1px solid var(--accent-success); color: var(--accent-success);">Outstanding ROI</span>
+                                </div>
+
+                                <div class="metrics-grid" style="margin-bottom: 20px; grid-template-columns: 1fr 1fr;">
+                                    <div class="metric-card" style="padding: 14px; margin-bottom: 0;">
+                                        <div class="metric-data">
+                                            <p style="font-size: 0.7rem;">Total Course Fee</p>
+                                            <h3 style="font-size: 1.3rem;" id="roi-total-investment">₹3,20,000</h3>
+                                        </div>
+                                    </div>
+                                    <div class="metric-card" style="padding: 14px; margin-bottom: 0;">
+                                        <div class="metric-data">
+                                            <p style="font-size: 0.7rem;">Payback Period</p>
+                                            <h3 style="font-size: 1.3rem;" id="roi-payback-months">5.9 Months</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="checklist-section" style="padding: 14px 18px; margin-bottom: 0;">
+                                    <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Investment Breakdown</h4>
+                                    <ul style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 6px;">
+                                        <li style="display: flex; justify-content: space-between; width: 100%;">
+                                            <span>Tuition Fees:</span>
+                                            <strong id="roi-breakdown-tuition">₹3,20,000</strong>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; width: 100%;">
+                                            <span>Security & Library Deposits:</span>
+                                            <strong>₹10,000</strong>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; width: 100%; border-top: 1px solid var(--border-color); padding-top: 6px; margin-top: 4px;">
+                                            <span>Estimated Gross Capital:</span>
+                                            <strong id="roi-breakdown-total" style="color: var(--accent-indigo-light);">₹3,30,000</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                                <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; font-style: italic;">
+                                    *Disclaimer: ROI estimates represent mock timelines calculated using the starting CTC relative to capital tuition requirements. Academic performance, training participation, and placement variables will apply.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 9: STUDENT HUB & NOTIFICATION CENTER -->
+                <section class="tab-content" id="tab-hub">
+                    <div class="section-header">
+                        <h2>Active Student Hub & Alerts</h2>
+                        <p>Academic announcements, campus events, and placement alerts for registered Rungta students.</p>
+                    </div>
+
+                    <div class="grid-two-cols">
+                        <!-- Notification Feed -->
+                        <div class="glass-card" style="display: flex; flex-direction: column;">
+                            <div class="card-header" style="margin-bottom: 12px;">
+                                <h3><i class="fa-solid fa-bell"></i> Live Alerts Stream</h3>
+                                <div class="filter-tabs" style="gap: 5px;">
+                                    <button class="filter-btn active hub-filter-btn" data-hub-filter="all" style="padding: 6px 12px; font-size: 0.75rem;">All</button>
+                                    <button class="filter-btn hub-filter-btn" data-hub-filter="exams" style="padding: 6px 12px; font-size: 0.75rem;">Exams</button>
+                                    <button class="filter-btn hub-filter-btn" data-hub-filter="placements" style="padding: 6px 12px; font-size: 0.75rem;">Careers</button>
+                                    <button class="filter-btn hub-filter-btn" data-hub-filter="events" style="padding: 6px 12px; font-size: 0.75rem;">Events</button>
+                                </div>
+                            </div>
+                            
+                            <div id="notifications-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px; max-height: 420px; overflow-y: auto; padding-right: 4px;">
+                                <!-- Populate via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Hub Tools / Actions -->
+                        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-screwdriver-wrench"></i> Simulator Controls</h3>
+                                    <span class="card-tag">Student Sandbox</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.4;">
+                                    Test our notification pipeline! Choose a preset alert category below to instantly dispatch a mock live alert to the student stream on the left.
+                                </p>
+                                
+                                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                                    <button class="btn btn-outline" style="justify-content: flex-start; text-align: left; padding: 12px;" onclick="triggerSimulatedAlert('exams')">
+                                        <i class="fa-solid fa-calendar-check" style="color: var(--accent-red-light); margin-right: 8px;"></i> Dispatch Exam Alert
+                                    </button>
+                                    <button class="btn btn-outline" style="justify-content: flex-start; text-align: left; padding: 12px;" onclick="triggerSimulatedAlert('placements')">
+                                        <i class="fa-solid fa-briefcase" style="color: var(--accent-success); margin-right: 8px;"></i> Dispatch Placement Alert
+                                    </button>
+                                    <button class="btn btn-outline" style="justify-content: flex-start; text-align: left; padding: 12px;" onclick="triggerSimulatedAlert('events')">
+                                        <i class="fa-solid fa-guitar" style="color: var(--accent-red-light); margin-right: 8px;"></i> Dispatch Event Alert
+                                    </button>
+                                </div>
+
+                                <div class="checklist-section" style="padding: 14px 18px; margin-bottom: 0;">
+                                    <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Quick Academics Links</h4>
+                                    <ul style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+                                        <li><a href="https://rungta.ac.in" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> Download Exam Syllabus</a></li>
+                                        <li><a href="https://fees.rungta.ac.in" target="_blank"><i class="fa-solid fa-receipt"></i> Generate Semester Fee Receipt</a></li>
+                                        <li><a href="#" onclick="alert('Mock feature: CGPA 8.7 Tracker Active!')"><i class="fa-solid fa-calculator"></i> CGPA Analytics Calculator</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; text-align: center;">
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">
+                                    Active Student Session &bull; Secured with Keka
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer-bar">
+                <p>&copy; 2026 Rungta Group of Institutions. Designed with <i class="fa-solid fa-heart accent-glow"></i> for Gen-Z.</p>
+                <div class="footer-links">
+                    <a href="https://rungta.ac.in" target="_blank" rel="noopener">Privacy Policy</a>
+                    <a href="https://rungta.ac.in" target="_blank" rel="noopener">Terms & Conditions</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+</body>
+</html>
